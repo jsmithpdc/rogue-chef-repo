@@ -34,8 +34,8 @@ end
 
 template File.join(node['tomcat']['webapp_dir'], 'geoserver', 'WEB-INF', 'web.xml') do
   source 'web.xml.erb'
-  retry_delay 5
-  retries 3
+  retry_delay 10
+  retries 5
   owner node['tomcat']['user']
   group node['tomcat']['group']
 end
