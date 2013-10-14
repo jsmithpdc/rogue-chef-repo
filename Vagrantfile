@@ -22,6 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
+
+  # Install RVM, Ruby and Chef on the Virtual Machine.
+  config.vm.provision :shell, :path => "scripts/install_rvm.sh",  :args => "stable"
+  config.vm.provision :shell, :path => "scripts/install_ruby.sh", :args => "1.9.3"
   config.vm.provision :shell, :inline => "gem install chef --version 11.6.0 --no-rdoc --no-ri --conservative"
 
 
@@ -86,7 +90,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      chef.add_recipe "rogue::tomcat"
      chef.add_recipe "geoserver"
      chef.add_recipe "rogue::nginx"
-     chef.add_recipe "rogue"
+     chef.add_recipe "rogue::networking"
      #chef.add_recipe "rogue::geogit"
      
      #chef.add_role "web"
