@@ -92,7 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      chef.add_recipe "rogue::nginx"
      chef.add_recipe "rogue::networking"
      chef.add_recipe "rogue"
-     #chef.add_recipe "rogue::geogit"
+     chef.add_recipe "rogue::geogit"
      
      #chef.add_role "web"
   
