@@ -25,12 +25,12 @@ end
 geoserver_data_dir = File.join(node['tomcat']['webapp_dir'],'geoserver', 'data')
 
 # move the geoserver data dir to correct location
-if not geoserver_data_dir.eql? node['geoserver']['data_dir'] and File.exists? 	geoserver_data_dir
-  execute "copy geoserver data dir" do
-   command "mv #{geoserver_data_dir} #{node['geoserver']['data_dir']}"
-   action :run
-  end
+execute "copy geoserver data dir" do
+ command "mv #{geoserver_data_dir} #{node['geoserver']['data_dir']}"
+ action :run
+ only_if  do !geoserver_data_dir.eql? node['geoserver']['data_dir'] and File.exists? geoserver_data_dir and !File.exists? node['geoserver']['data_dir'] end
 end
+
 
 template File.join(node['tomcat']['webapp_dir'], 'geoserver', 'WEB-INF', 'web.xml') do
   source 'web.xml.erb'
