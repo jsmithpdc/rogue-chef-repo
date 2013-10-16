@@ -88,6 +88,7 @@ end
 "libgdal".split.each do |pkg|
     apt_package pkg do
       action :install
+      ignore_failure true
     end
 end
 
