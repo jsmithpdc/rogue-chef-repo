@@ -78,7 +78,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # some recipes and/or roles.
   #
    config.vm.provision :chef_solo do |chef|
-
+     
+     chef.provisioning_path = "/home/vagrant/vagrant-chef"
      chef.cookbooks_path = "cookbooks"
      #chef.roles_path = "roles"
      #chef.data_bags_path = "data_bags"
