@@ -10,34 +10,25 @@ log "Downloaded geoserver"
 execute "copy_geoserver_war" do 
   command "mv #{tmp_geoserver_war} #{node['tomcat']['webapp_dir']}"
   action :run
-end
-
-file File.join(node['tomcat']['webapp_dir'],"geoserver.war") do
-  owner node['tomcat']['user']
-  group node['tomcat']['group']
-  action :touch
-end
-
-service 'tomcat' do
-  action :restart
+  notifies :restart, resources(:service => "tomcat"), :immediate
 end
 
 geoserver_data_dir = File.join(node['tomcat']['webapp_dir'],'geoserver', 'data')
+
+template File.join(node['tomcat']['webapp_dir'], 'geoserver', 'WEB-INF', 'web.xml') do
+  source 'web.xml.erb'
+  retry_delay 15
+  retries 6
+  owner node['tomcat']['user']
+  group node['tomcat']['group']
+  notifies :restart, resources(:service => "tomcat"), :immediate
+end
 
 # move the geoserver data dir to correct location
 execute "copy geoserver data dir" do
  command "mv #{geoserver_data_dir} #{node['geoserver']['data_dir']}"
  action :run
  only_if  do !geoserver_data_dir.eql? node['geoserver']['data_dir'] and File.exists? geoserver_data_dir and !File.exists? node['geoserver']['data_dir'] end
-end
-
-
-template File.join(node['tomcat']['webapp_dir'], 'geoserver', 'WEB-INF', 'web.xml') do
-  source 'web.xml.erb'
-  retry_delay 10
-  retries 5
-  owner node['tomcat']['user']
-  group node['tomcat']['group']
 end
 
 
