@@ -8,4 +8,3 @@ cookbook 'rogue', :git => "https://github.com/ROGUE-JCTD/rogue-cookbook.git"
 cookbook 'geoserver', :path=> 'cookbooks/geoserver'
 cookbook 'hostsfile', '~> 2.4.0'
 cookbook 'database'
-cookbook 'postgis'

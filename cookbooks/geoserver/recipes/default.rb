@@ -69,20 +69,6 @@ service 'tomcat' do
   action :start
 end
 
-apt_repository "opengeo" do
-  uri 'http://apt.opengeo.org/ubuntu'
-  distribution 'lucid'
-  components ['main']
-  key 'http://apt.opengeo.org/gpg.key'
-end
-
-"libgdal".split.each do |pkg|
-    apt_package pkg do
-      action :install
-      ignore_failure true
-    end
-end
-
 tmp_geowebcache_war = File.join('/tmp/', 'geowebcache.war')
 
 remote_file tmp_geowebcache_war do
