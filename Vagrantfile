@@ -87,13 +87,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      chef.add_recipe "python"
      chef.add_recipe "git"
      chef.add_recipe "rogue::postgresql"
-     chef.add_recipe "rogue::java"
-     chef.add_recipe "rogue::tomcat"
-     chef.add_recipe "geoserver"
-     chef.add_recipe "rogue::nginx"
-     chef.add_recipe "rogue::networking"
      chef.add_recipe "rogue"
-     chef.add_recipe "rogue::geogit"
+
 
      #chef.add_role "web"
   

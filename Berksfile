@@ -5,6 +5,5 @@ cookbook 'python', '~> 1.4.0'
 cookbook 'openssl', '~> 1.1.0'
 cookbook 'ohai', '~> 1.1.12'
 cookbook 'rogue', :git => "https://github.com/ROGUE-JCTD/rogue-cookbook.git"
-cookbook 'geoserver', :path=> 'cookbooks/geoserver'
 cookbook 'hostsfile', '~> 2.4.0'
 cookbook 'database'
