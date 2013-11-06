@@ -6,4 +6,4 @@ cookbook 'openssl', '~> 1.1.0'
 cookbook 'ohai', '~> 1.1.12'
 cookbook 'rogue', :git => "https://github.com/ROGUE-JCTD/rogue-cookbook.git"
 cookbook 'hostsfile', '~> 2.4.0'
-cookbook 'database'
+cookbook 'database', '~>1.5.2'
