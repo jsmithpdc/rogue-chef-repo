@@ -93,7 +93,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      #chef.add_role "web"
   
      # You may also specify custom JSON attributes:
-     # chef.json={}
+     chef.json={'vagrant'=>true}
 
    end
 
