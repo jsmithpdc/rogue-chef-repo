@@ -94,6 +94,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
      # You may also specify custom JSON attributes:
      chef.json={'vagrant'=>true}
+     
+     ## pull the sprint release branch of geogit and use maploom instead of salamati    
+#     chef.json={
+#          'vagrant' => true,
+#          'rogue' => {
+#              'geogit' => {'branch' => 'SprintRelease'},
+#              'rogue_geonode' => {'branch' => 'maploom'}
+#          }
+#     }     
 
    end
 
