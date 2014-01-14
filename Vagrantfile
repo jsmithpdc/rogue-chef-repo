@@ -42,12 +42,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
+  # Create a public network, obtain it's ip through dhcp and bridge it through host's en0
   config.vm.network :public_network, :bridge => 'en0: Ethernet'
   #'en1: Wi-Fi (AirPort)'
-  #
+
+  # Create a public network with a static ip and bridged through host's en0 and specify the netmask
+  # config.vm.network :public_network, :bridge => 'en0: Ethernet', ip: "190.5.74.29", netmask: "255.255.255.240"
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
