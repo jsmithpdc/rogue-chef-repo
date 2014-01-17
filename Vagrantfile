@@ -101,7 +101,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #          'rogue' => {
 #              'geogit' => {'branch' => 'SprintRelease'},
 #              'rogue_geonode' => {'branch' => 'maploom'}
-#          }
+#          },
+#          'tomcat'=>{'java_options' => "-Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"}
 #     }     
 
    end
