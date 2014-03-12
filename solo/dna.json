@@ -11,7 +11,6 @@
       "application": {
         "fqdn": "dev.rogue.lmnsolutions.com"
        }
-    },
-   "rogue_geonode":{"branch":"maploom"}
+    }
   }
 }
