@@ -7,7 +7,7 @@ cookbook 'ohai', '~> 1.1.12'
 cookbook 'rogue', :git => "https://github.com/ROGUE-JCTD/rogue-cookbook.git"
 cookbook 'hostsfile', '~> 2.4.1'
 cookbook 'database', '~>1.5.2'
-cookbook 'java','~> 1.15.4'
+cookbook 'java','~> 1.22.0'
 cookbook 'tomcat', '~>0.15.2'
 cookbook 'postgresql', '~>3.3.4'
 cookbook 'nginx', '~>2.0.4'
