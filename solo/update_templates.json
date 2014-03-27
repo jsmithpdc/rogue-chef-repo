@@ -1,0 +1,7 @@
+{
+  "run_list": [
+    "recipe[rogue::update_templates]"
+  ],
+  "rogue": {
+  }
+}
