@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Install RVM, Ruby and Chef on the Virtual Machine.
   config.vm.provision :shell, :path => "scripts/install_rvm.sh",  :args => "stable"
   config.vm.provision :shell, :path => "scripts/install_ruby.sh", :args => "1.9.3"
-  config.vm.provision :shell, :inline => "gem install chef --version 11.8.0 --no-rdoc --no-ri --conservative"
+  config.vm.provision :shell, :inline => "gem install chef --version 11.10.4 --no-rdoc --no-ri --conservative"
 
 
   # The url from where the 'config.vm.box' box will be fetched if it
