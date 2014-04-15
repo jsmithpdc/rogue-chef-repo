@@ -12,5 +12,8 @@
         "fqdn": "dev.rogue.lmnsolutions.com"
        }
     }
+  },
+  "tomcat":{
+      "java_options": "-Djava.awt.headless=true -Xmx2g -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
   }
 }
