@@ -63,12 +63,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-   config.vm.provider :virtualbox do |vb|
-  #   # Don't boot with headless mode
-      vb.gui = true
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-     vb.customize ["modifyvm", :id, "--memory", "2048"]
-   end
+  config.vm.provider :virtualbox do |vb|
+    # Don't boot with headless mode
+    vb.gui = true
+    # Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+  end
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -77,35 +78,33 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
-   config.vm.provision :chef_solo do |chef|
-     
-     chef.provisioning_path = "/opt/vagrant-chef"
-     chef.cookbooks_path = "cookbooks"
-     #chef.roles_path = "roles"
-     #chef.data_bags_path = "data_bags"
-     chef.add_recipe "apt"
-     chef.add_recipe "python"
-     chef.add_recipe "git"
-     chef.add_recipe "rogue::postgresql"
-     chef.add_recipe "rogue"
+  config.vm.provision :chef_solo do |chef|
+    chef.provisioning_path = "/opt/vagrant-chef"
+    chef.cookbooks_path = "cookbooks"
+    #chef.roles_path = "roles"
+    #chef.data_bags_path = "data_bags"
+    chef.add_recipe "apt"
+    chef.add_recipe "python"
+    chef.add_recipe "git"
+    chef.add_recipe "rogue::postgresql"
+    chef.add_recipe "rogue"
 
-
-     #chef.add_role "web"
+    #chef.add_role "web"
   
-     # You may also specify custom JSON attributes:
-     chef.json={'vagrant'=>true}
+    # You may also specify custom JSON attributes:
+    chef.json={'vagrant'=>true}
      
-     ## pull the sprint release branch of geogit and use maploom instead of salamati    
-#     chef.json={
-#          'vagrant' => true,
-#          'rogue' => {
-#              'geogit' => {'branch' => 'SprintRelease'},
-#              'rogue_geonode' => {'branch' => 'maploom'}
-#          },
-#          'tomcat'=>{'java_options' => "-Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"}
-#     }     
+    ## pull the sprint release branch of geogit and use maploom instead of salamati    
+#    chef.json={
+#      'vagrant' => true,
+#      'rogue' => {
+#        'geogit' => {'branch' => 'SprintRelease'},
+#        'rogue_geonode' => {'branch' => 'maploom'}
+#       },
+#      'tomcat'=>{'java_options' => "-Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"}
+#    }     
 
-   end
+  end
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
