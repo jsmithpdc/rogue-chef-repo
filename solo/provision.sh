@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 cd /opt/rogue-chef-repo
 source /home/rogue/.rvm/scripts/rvm
 type rvm | head -1
