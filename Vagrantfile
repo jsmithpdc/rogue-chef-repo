@@ -3,6 +3,7 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+BERKSHELF = false
 
 # We'll mount the Chef::Config[:file_cache_path] so it persists between
 # Vagrant VMs
@@ -18,14 +19,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.berkshelf.enabled = true
-
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
 
   # Install RVM, Ruby and Chef on the Virtual Machine.
   config.vm.provision :shell, :path => "scripts/install_rvm.sh",  :args => "stable"
   config.vm.provision :shell, :path => "scripts/install_ruby.sh", :args => "1.9.3"
+  unless BERKSHELF
+    config.vm.provision :shell, :path => "scripts/setup_vm.sh", :args => "vagrant"
+  end
   config.vm.provision :shell, :inline => "gem install chef --version 11.10.4 --no-rdoc --no-ri --conservative"
 
 
@@ -78,21 +80,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
-  config.vm.provision :chef_solo do |chef|
-    chef.provisioning_path = "/opt/vagrant-chef"
-    chef.cookbooks_path = "cookbooks"
-    #chef.roles_path = "roles"
-    #chef.data_bags_path = "data_bags"
-    chef.add_recipe "apt"
-    chef.add_recipe "python"
-    chef.add_recipe "git"
-    chef.add_recipe "rogue::postgresql"
-    chef.add_recipe "rogue"
+
+  if BERKSHELF
+    config.berkshelf.enabled = true
+    config.vm.provision :chef_solo do |chef|
+      chef.provisioning_path = "/opt/vagrant-chef"
+      chef.cookbooks_path = "cookbooks"
+      #chef.roles_path = "roles"
+      #chef.data_bags_path = "data_bags"
+      chef.add_recipe "apt"
+      chef.add_recipe "python"
+      chef.add_recipe "git"
+      chef.add_recipe "rogue::postgresql"
+      chef.add_recipe "rogue"
 
     #chef.add_role "web"
   
     # You may also specify custom JSON attributes:
-    chef.json={'vagrant'=>true}
+      chef.json={'vagrant'=>true}
      
     ## pull the sprint release branch of geogit and use maploom instead of salamati    
 #    chef.json={
@@ -104,6 +109,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #      'tomcat'=>{'java_options' => "-Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"}
 #    }     
 
+    end
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
