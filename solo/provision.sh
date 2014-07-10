@@ -5,5 +5,5 @@ source /home/rogue/.rvm/scripts/rvm
 type rvm | head -1
 git pull
 berks update
-berks install --path /opt/chef-run/cookbooks
+berks vendor /opt/chef-run/cookbooks
 rvmsudo chef-solo -c /opt/chef-run/solo.rb -j /opt/chef-run/dna.json

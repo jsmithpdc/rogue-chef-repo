@@ -15,16 +15,16 @@ rvm install ruby-2.0.0-p353  # tyler uses 193
 rvm --default use 2.0.0-p353
 ruby -v # will show which version is being used
 
-gem install chef --version 11.10.4 --no-rdoc --no-ri --conservative
-gem install solve --version 0.8.2
-gem install nokogiri --version 1.6.1
-gem install berkshelf --version 2.0.18 --no-rdoc --no-ri
 
 # install git
 apt-get install -y git
 
 cd /opt
 git clone https://github.com/ROGUE-JCTD/rogue-chef-repo.git
+cd rogue-chef-repo
+bundle install
+berks install
+cd ..
 
 # Setup Chef Run folder
 # if dna.json is in /opt/chef-run, move it out, then run the following, then put it back
