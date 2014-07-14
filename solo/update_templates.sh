@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# exit if anything returns failure
+set -e
 
 # Uses chef-solo to execute the `update_templates` recipe.
 
@@ -8,3 +10,4 @@
 
 rvmsudo chef-solo -c /opt/chef-run/solo.rb -j /opt/chef-run/update_templates.json
 service tomcat7 restart
+supervisorctl restart rogue
