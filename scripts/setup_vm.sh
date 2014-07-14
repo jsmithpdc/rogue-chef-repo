@@ -8,7 +8,8 @@ apt-get install curl
 # install rvm 
 curl -L https://get.rvm.io | bash -s stable
 
-# run the rest of the scripts as su - (make sure the dash is present or the rvm profile will not get set)
+# activate the correct rvm environment
+source /usr/local/rvm/scripts/rvm
 
 # get latest rvm
 rvm get stable
