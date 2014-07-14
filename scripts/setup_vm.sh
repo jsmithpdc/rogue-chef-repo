@@ -3,7 +3,7 @@
 set -e
 
 # install curl
-apt-get install curl
+apt-get install curl -y
 
 # install rvm 
 curl -L https://get.rvm.io | bash -s stable
