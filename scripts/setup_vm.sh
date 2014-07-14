@@ -1,3 +1,7 @@
+#!/bin/bash
+# exit if anything returns failure
+set -e
+
 # install curl
 apt-get install curl
 
