@@ -50,7 +50,7 @@ cd chef-run
 # Edit dna.json to use correct FQDN… Note: update the url to your server’s url’. If there is no fully qualified domain name, you can simply remove the line from the dna file
 sed -i 's/fqdn/fqdn-ignore/g' dna.json
 # if vagrant is specified, add "vagrant":true
-if test $1 = "vagrant"
+if [ "$1"  = "vagrant" ];
 then
 echo "Vagrant specified..."
 sed -i '2 i\
@@ -64,4 +64,4 @@ fi
 chmod 755 *.sh
 
 # to install latest rogue run this .sh file. if you remove the /var/lib/geoserver_data folder, it will download it again. To keep your data, just leave the folder as is and the script will not pull down the basic data folder
-./provision.sh
+#./provision.sh
