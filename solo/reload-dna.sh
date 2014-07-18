@@ -1,2 +1,4 @@
-cd /opt
-cp /opt/rogue-chef-repo/solo/dna.json chef-run/dna.json
+#!/bin/bash
+# exit if anything returns failure
+set -e
+cp /opt/rogue-chef-repo/solo/dna.json /opt/chef-run/dna.json

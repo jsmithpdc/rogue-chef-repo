@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# exit if anything returns failure
+set -e
+
 # store current directory
 pushd .
 
