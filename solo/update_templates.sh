@@ -9,5 +9,9 @@ set -e
 # requests to the internet.
 
 rvmsudo chef-solo -c /opt/chef-run/solo.rb -j /opt/chef-run/update_templates.json
+
+cd /var/lib/geonode/rogue_geonode
+/var/lib/geonode/bin/python manage.py update-layer-ips
+
 service tomcat7 restart
 supervisorctl restart rogue
