@@ -8,7 +8,7 @@ set -e
 # files with the current IP of the machine, without making any
 # requests to the internet.
 
-rvmsudo chef-solo -c /opt/chef-run/solo.rb -j /opt/chef-run/update_templates.json
+rvmsudo chef-solo -c /opt/chef-run/solo.rb -j /opt/chef-run/dna.json -o "recipe[rogue::update_templates]"
 
 cd /var/lib/geonode/rogue_geonode
 /var/lib/geonode/bin/python manage.py update-layer-ips
