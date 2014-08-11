@@ -24,7 +24,14 @@ ruby -v # will show which version is being used
 # install git
 apt-get install -y git
 
-cd /opt/rogue-chef-repo
+cd /opt
+if [ -f rogue-chef-repo ];
+then
+cd rogue-chef-repo
+else
+git clone https://github.com/ROGUE-JCTD/rogue-chef-repo.git
+cd rogue-chef-repo
+fi
 bundle install
 berks install
 cd ..
