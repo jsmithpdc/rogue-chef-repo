@@ -25,7 +25,7 @@ ruby -v # will show which version is being used
 apt-get install -y git
 
 cd /opt
-if [ -f rogue-chef-repo ];
+if [ -d rogue-chef-repo ];
 then
 cd rogue-chef-repo
 else
