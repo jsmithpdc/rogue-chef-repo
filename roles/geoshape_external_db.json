@@ -1,11 +1,10 @@
 {
-  "name": "geoshape_core",
+  "name": "geoshape_external_db",
   "chef_type": "role",
   "json_class": "Chef::Role",
-  "description": "Core GeoSHAPE Settings",
+  "description": "GeoSHAPE Settings For External PostgreSQL Database",
   "run_list": [
     "role[geoshape_base]",
-    "recipe[rogue::postgresql]",
     "recipe[rogue]"
   ]
 }

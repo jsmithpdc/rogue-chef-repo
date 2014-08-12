@@ -1,0 +1,17 @@
+{
+  "name": "geoshape_base",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "Core GeoSHAPE Settings",
+  "default_attributes": {
+    "tomcat":{
+      "java_options": "-Djava.awt.headless=true -Xmx2g -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
+    }
+  },
+  "run_list": [
+    "recipe[apt]",
+    "recipe[python]",
+    "recipe[git]",
+    "recipe[rogue::gdal]"
+  ]
+}

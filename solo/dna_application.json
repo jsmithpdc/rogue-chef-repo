@@ -1,0 +1,16 @@
+{
+  "run_list": [
+    "role[geoshape_external_db]"
+  ],
+  "rogue": {
+    "setup_db": false,
+    "networking": {
+      "database": {
+        "address": "_put_database_url_here_"
+      }
+    },
+    "postgresql": {
+      "user": "postgres"
+    }
+  }
+}

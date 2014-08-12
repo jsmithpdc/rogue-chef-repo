@@ -38,7 +38,7 @@ cd ..
 
 # Setup Chef Run folder
 # if dna.json is in /opt/chef-run, move it out, then run the following, then put it back
-# Also remove the other dna files that ware aren't using for this setup.
+# Otherwise, set up the dna.json to use the application dna. This is because provision relies on dna.json.
 
 if [ -f chef-run/dna.json ];
 then
@@ -54,8 +54,9 @@ else
 echo "Using default dna.json"
 mkdir chef-run
 cp -r /opt/rogue-chef-repo/solo/* chef-run/
-rm chef-run/dna_application.json
+rm chef-run/dna.json
 rm chef-run/dna_database.json
+mv chef-run/dna_application.json chef-run/dna.json
 cd chef-run
 # Edit dna.json to use correct FQDN… Note: update the url to your server’s url’. If there is no fully qualified domain name, you can simply remove the line from the dna file
 sed -i 's/fqdn/fqdn-ignore/g' dna.json

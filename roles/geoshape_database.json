@@ -1,0 +1,12 @@
+{
+  "name": "geoshape_database",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "GeoSHAPE External PostgreSQL Database",
+  "run_list": [
+    "role[geoshape_base]",
+    "recipe[rogue::networking]",
+    "recipe[rogue::postgresql]",
+    "recipe[rogue::database]"
+  ]
+}
