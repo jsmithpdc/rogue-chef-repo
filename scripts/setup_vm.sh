@@ -6,6 +6,8 @@ set -e
 apt-get install curl -y
 
 # install rvm 
+curl -#LO https://rvm.io/mpapis.asc
+gpg --import mpapis.asc
 curl -L https://get.rvm.io | bash -s stable
 
 # activate the correct rvm environment
