@@ -1,5 +1,27 @@
-{
-  "run_list": [
-    "role[geoshape_core]"
-  ]
+{  
+   "run_list":[  
+      "role[geoshape_core]"
+   ],
+   "rogue":{  
+      "networking":{  
+	 "application":{  
+	    "fqdn":"208.65.123.212"
+	 }
+      },
+      "user":{  
+	 "username":"rogue",
+	 "password":"$1$sicQrWTt$ZjFZZwCywlnLq6/bWF21t/"
+      },
+      "geogit":{  
+	 "global_configuration":{  
+	    "user":{  
+	       "name":"pdc",
+	       "email":"geoinfo@pdc.org"
+	    },
+	    "bdbje":{  
+	       "object_durability":"safe"
+	    }
+	 }
+      }
+   }
 }
