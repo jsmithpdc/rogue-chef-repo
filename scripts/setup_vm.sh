@@ -25,6 +25,10 @@ ruby -v # will show which version is being used
 # install git
 apt-get install -y git
 
+# Pull ROGUE-CHEF-REPO if it doesn't already exist on the VM.
+# We do this so we can execute setup_vm from a Vagrantfile and
+# without a Vagrantfile.
+
 cd /opt
 if [ -d rogue-chef-repo ];
 then
