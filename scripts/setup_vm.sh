@@ -37,6 +37,8 @@ else
 git clone https://github.com/ROGUE-JCTD/rogue-chef-repo.git
 cd rogue-chef-repo
 fi
+# TODO: only clone a given branch as opposed to the whole repo. check this for all repos.
+git checkout -b 2.x origin/2.x
 bundle install
 berks install
 cd ..
