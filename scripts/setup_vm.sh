@@ -2,6 +2,36 @@
 # exit if anything returns failure
 set -e
 
+#-- parse parameters to see if 'vagrant' and/or a second parameter have been passed in
+#   if vagrant is passed in, the otehr paramt will be used as rogue version. if only one
+#   param is passed in and it is not vagrant, it will be used as the rogue varions. 
+#   valid usage example: 
+#   setup_vm.sh 2.x
+#   setup_vm.sh 2.x vagrant
+#   setup_vm.sh vagrant 2.x
+#   setup_vm.sh
+
+if [ "$1" = "vagrant" ];
+then
+  ROGUE_USING_VAGRANT=true
+  ROGUE_VERSION="$2"
+elif [ "$2" = "vagrant" ];
+then
+  ROGUE_USING_VAGRANT=true
+  ROGUE_VERSION="$1"
+else
+  ROGUE_VERSION="$1" 
+fi
+
+if [ -z "$ROGUE_VERSION" ];
+then
+  echo 'rogue version not specified, will use latest release.'
+fi
+
+echo ROGUE_USING_VAGRANT: ${ROGUE_USING_VAGRANT}
+echo ROGUE_VERSION: ${ROGUE_VERSION}
+
+
 # install curl
 apt-get install curl -y
 
@@ -32,13 +62,36 @@ apt-get install -y git
 cd /opt
 if [ -d rogue-chef-repo ];
 then
-cd rogue-chef-repo
+  cd rogue-chef-repo
 else
-git clone https://github.com/ROGUE-JCTD/rogue-chef-repo.git
-cd rogue-chef-repo
+  git clone https://github.com/ROGUE-JCTD/rogue-chef-repo.git
+  cd rogue-chef-repo
 fi
-# TODO: only clone a given branch as opposed to the whole repo. check this for all repos.
-git checkout -b 2.x origin/2.x
+
+if [ -z "$ROGUE_VERSION" ];
+then
+  # discover the branches in the repo and use the one matching ${ROGUE_VERSION}. if it is not set, use the highest #.x branch
+  BRANCHES=(`git for-each-ref --shell --count=30 refs/heads/ --format='%(refname:short)'`)
+  BRANCHES_RELEASE=()
+
+  for BRANCH in "${BRANCHES[@]}"
+  do
+    # consider any branch name that has a '.' in its name a potential release branch
+    if [[ $BRANCH == *"."* ]]
+    then
+      BRANCHES_RELEASE+=("$BRANCH")
+    fi
+  done
+
+  # sort the list of branches that had '.' in them such that index 0 is the largest one
+  BRANCHES_RELEASE_SORTED=($(printf '%s\n' "${BRANCHES_RELEASE[@]}"|sort -r))
+  #echo 'sorted release branches: '
+  #echo "${BRANCHES_RELEASE_SORTED[@]}"
+  ROGUE_VERSION=${BRANCHES_RELEASE_SORTED[0]}
+  echo '----[ discovered rogure release version: '${ROGUE_VERSION}
+fi
+
+git checkout -b ${ROGUE_VERSION} origin/${ROGUE_VERSION}
 bundle install
 berks install
 cd ..

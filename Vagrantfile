@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "scripts/install_rvm.sh",  :args => "stable"
   config.vm.provision :shell, :path => "scripts/install_ruby.sh", :args => "1.9.3"
   unless BERKSHELF
-    config.vm.provision :shell, :path => "scripts/setup_vm.sh", :args => "vagrant"
+    config.vm.provision :shell, :path => "scripts/setup_vm.sh", :args => "2.x --vagrant"
   end
   config.vm.provision :shell, :inline => "gem install chef --version 11.10.4 --no-rdoc --no-ri --conservative"
 
