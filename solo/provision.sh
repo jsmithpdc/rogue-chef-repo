@@ -7,6 +7,7 @@ pushd .
 
 cd /opt/rogue-chef-repo
 git pull
+bundle update
 berks update
 rm -rf /opt/chef-run/cookbooks
 berks vendor /opt/chef-run/cookbooks
