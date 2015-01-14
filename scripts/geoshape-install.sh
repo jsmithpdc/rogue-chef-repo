@@ -2,34 +2,36 @@
 # exit if anything returns failure
 set -e
 
-#-- parse parameters to see if 'vagrant' and/or a second parameter have been passed in
-#   if vagrant is passed in, the otehr paramt will be used as rogue version. if only one
-#   param is passed in and it is not vagrant, it will be used as the rogue varions. 
-#   valid usage example: 
-#   setup_vm.sh 2.x
-#   setup_vm.sh 2.x vagrant
-#   setup_vm.sh vagrant 2.x
-#   setup_vm.sh
+#-- parse parameters to see if a geoshape version and/or the parameter 'vagrant' have been passed in.
+#   if vagrant is passed in, any other parameter will be used as geoshape version. if only one
+#   param is passed in and it is not 'vagrant', it will be used as the GEOSHAPE varions.
+#   valid usage examples:
+#   geoshape-install.sh release-1.2
+#   geoshape-install.sh release-1.1 vagrant
+#   geoshape-install.sh vagrant realease-1.1
+#   geoshape-install.sh 1.x       // example of using a branch to essentially get the 1.1 'snapshot' as opposed to an actual release
+#   geoshape-install.sh 0e43522   // example of using a commit id to get a 'snapshot' as opposed to an actual release
+
 
 if [ "$1" = "vagrant" ];
 then
-  ROGUE_USING_VAGRANT=true
-  ROGUE_VERSION="$2"
+  GEOSHAPE_USING_VAGRANT=true
+  GEOSHAPE_VERSION="$2"
 elif [ "$2" = "vagrant" ];
 then
-  ROGUE_USING_VAGRANT=true
-  ROGUE_VERSION="$1"
+  GEOSHAPE_USING_VAGRANT=true
+  GEOSHAPE_VERSION="$1"
 else
-  ROGUE_VERSION="$1" 
+  GEOSHAPE_VERSION="$1"
 fi
 
-if [ -z "$ROGUE_VERSION" ];
+if [ -z "$GEOSHAPE_VERSION" ];
 then
-  echo 'rogue version not specified, will use latest release.'
+  echo 'geoshape version not specified, will use latest release.'
 fi
 
-echo ROGUE_USING_VAGRANT: ${ROGUE_USING_VAGRANT}
-echo ROGUE_VERSION: ${ROGUE_VERSION}
+echo GEOSHAPE_USING_VAGRANT: ${GEOSHAPE_USING_VAGRANT}
+echo GEOSHAPE_VERSION: ${GEOSHAPE_VERSION}
 
 
 # install curl
@@ -55,8 +57,8 @@ ruby -v # will show which version is being used
 # install git
 apt-get install -y git
 
-# Pull ROGUE-CHEF-REPO if it doesn't already exist on the VM.
-# We do this so we can execute setup_vm from a Vagrantfile and
+# Pull rogue-chef-repo if it doesn't already exist on the VM.
+# We do this so we can execute geoshape-install from a Vagrantfile and
 # without a Vagrantfile.
 
 cd /opt
@@ -68,30 +70,22 @@ else
   cd rogue-chef-repo
 fi
 
-if [ -z "$ROGUE_VERSION" ];
+if [ -z "$GEOSHAPE_VERSION" ];
 then
-  # discover the branches in the repo and use the one matching ${ROGUE_VERSION}. if it is not set, use the highest #.x branch
-  BRANCHES=(`git for-each-ref --shell --count=30 refs/heads/ --format='%(refname:short)'`)
-  BRANCHES_RELEASE=()
-
-  for BRANCH in "${BRANCHES[@]}"
-  do
-    # consider any branch name that has a '.' in its name a potential release branch
-    if [[ $BRANCH == *"."* ]]
-    then
-      BRANCHES_RELEASE+=("$BRANCH")
-    fi
-  done
-
+  # discover the latest release tag
+  RELEASE_TAGS=(`git tag`)
+  echo 'release tags: '
+  echo "${RELEASE_TAGS[@]}"
   # sort the list of branches that had '.' in them such that index 0 is the largest one
-  BRANCHES_RELEASE_SORTED=($(printf '%s\n' "${BRANCHES_RELEASE[@]}"|sort -r))
-  #echo 'sorted release branches: '
-  #echo "${BRANCHES_RELEASE_SORTED[@]}"
-  ROGUE_VERSION=${BRANCHES_RELEASE_SORTED[0]}
-  echo '----[ discovered rogure release version: '${ROGUE_VERSION}
+  RELEASE_TAGS_SORTED=($(printf '%s\n' "${RELEASE_TAGS[@]}"|sort -r))
+  echo 'sorted release branches: '
+  echo "${RELEASE_TAGS_SORTED[@]}"
+  GEOSHAPE_VERSION=${RELEASE_TAGS_SORTED[0]}
+  echo '----[ discovered latest release version: '${GEOSHAPE_VERSION}
 fi
 
-git checkout -b ${ROGUE_VERSION} origin/${ROGUE_VERSION}
+git checkout ${GEOSHAPE_VERSION}
+
 bundle install
 berks install
 cd ..
@@ -134,4 +128,4 @@ fi
 chmod 755 *.sh
 
 # to install latest rogue run this .sh file. if you remove the /var/lib/geoserver_data folder, it will download it again. To keep your data, just leave the folder as is and the script will not pull down the basic data folder
-./provision.sh
+./geoshape-upgrade.sh
