@@ -78,8 +78,6 @@ then
   echo "${RELEASE_TAGS[@]}"
   # sort the list of branches that had '.' in them such that index 0 is the largest one
   RELEASE_TAGS_SORTED=($(printf '%s\n' "${RELEASE_TAGS[@]}"|sort -r))
-  echo 'sorted release branches: '
-  echo "${RELEASE_TAGS_SORTED[@]}"
   GEOSHAPE_VERSION=${RELEASE_TAGS_SORTED[0]}
   echo '----[ discovered latest release version: '${GEOSHAPE_VERSION}
 fi
@@ -128,4 +126,4 @@ fi
 chmod 755 *.sh
 
 # to install latest rogue run this .sh file. if you remove the /var/lib/geoserver_data folder, it will download it again. To keep your data, just leave the folder as is and the script will not pull down the basic data folder
-./geoshape-upgrade.sh
+./geoshape-upgrade.sh ${GEOSHAPE_VERSION} silent
