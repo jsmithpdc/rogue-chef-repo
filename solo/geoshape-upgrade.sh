@@ -6,7 +6,13 @@ set -e
 pushd .
 
 cd /opt/rogue-chef-repo
-#git pull
+
+CURRENT_BRANCH=`git branch | sed -n '/\* /s///p'`
+if ["$CURRENT_BRANCH" != "(no branch)"]
+then
+  git pull
+fi
+
 bundle update
 berks update
 rm -rf /opt/chef-run/cookbooks
