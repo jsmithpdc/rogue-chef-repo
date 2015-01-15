@@ -6,7 +6,7 @@ set -e
 pushd .
 
 cd /opt/rogue-chef-repo
-git pull
+#git pull
 bundle update
 berks update
 rm -rf /opt/chef-run/cookbooks
