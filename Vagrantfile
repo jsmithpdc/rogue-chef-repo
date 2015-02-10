@@ -40,16 +40,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.network :forwarded_port, guest: 80, host: 8080
 
   # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network :private_network, ip: "192.168.33.10", netmask: "255.255.255.240"
+  # using a specific IP. If you want to run multiple vms at once, you can change the .100 
+  # running a private network eliminates the chances of conflicting with the network you are connected to. 
+  # this is particularly useful when you want to run the vm on your laptop and endup being on various networks
+  # or even no network connectivity 
+  config.vm.network :private_network, ip: "192.168.99.100", netmask: "255.255.255.255"
 
   # Create a public network, obtain it's ip through dhcp and bridge it through host's en0
-  # config.vm.network :public_network, :bridge => 'en0: Ethernet', ip: "192.168.10.222", netmask: "255.255.255.0"
-  config.vm.network :public_network, :bridge => 'en0: Ethernet'
-  #'en1: Wi-Fi (AirPort)'
+  # config.vm.network :public_network, :bridge => 'en0: Ethernet'
 
-  # Create a public network with a static ip and bridged through host's en0 and specify the netmask
-  # config.vm.network :public_network, :bridge => 'en0: Ethernet', ip: "190.5.74.29", netmask: "255.255.255.240"
+  # The following can be used to specify a static ip through the host's  en0. You can use other nework adaptors such as 'en1: Wi-Fi (AirPort)'  
+  # config.vm.network :public_network, :bridge => 'en0: Ethernet', ip: "192.168.10.222", netmask: "255.255.255.255"
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
