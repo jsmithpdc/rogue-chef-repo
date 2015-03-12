@@ -12,7 +12,7 @@
 	 "username":"rogue",
 	 "password":"$1$sicQrWTt$ZjFZZwCywlnLq6/bWF21t/"
       },
-      "geogit":{  
+      "geogig":{  
 	 "global_configuration":{  
 	    "user":{  
 	       "name":"pdc",
